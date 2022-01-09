@@ -1,0 +1,11 @@
+language: reactphp
+fprocess: php index.php
+welcome_message: |
+  This is a new function answering with a ReactPHP HTTP server
+
+  Dependencies can be added with composer.json & install.sh
+
+  For more info visit
+  https://reactphp.org/http/
+  https://github.com/choval/faas-php-templates
+

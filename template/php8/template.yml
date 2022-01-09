@@ -1,0 +1,7 @@
+language: php8
+fprocess: php index.php
+welcome_message: |
+  This is a new function using PHP 8
+  Dependencies can be added with composer.json & install.sh
+  More information at https://github.com/choval/faas-php-templates
+
