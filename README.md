@@ -36,7 +36,7 @@ To pass a composer auth:
 
 ```sh
 faas-cli build -f ./my-function.yml \
-  --build-arg COMPOSER_AUTH=`cat auth.json`
+  --build-arg COMPOSER_AUTH=`jq -c . < ./auth.json`
 ```
 
 With `auth.json` being something like:
