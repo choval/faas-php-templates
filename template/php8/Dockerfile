@@ -10,6 +10,7 @@ ARG BUILDPLATFORM
 ARG COMPOSER_AUTH='{}'
 ENV COMPOSER_AUTH=${COMPOSER_AUTH}
 COPY ./function/composer.* /app/
+RUN echo ${COMPOSER_AUTH} > /tmp/auth.json
 RUN [[ -f composer.lock || composer.json ]] && \
     composer install --no-dev --no-cache --no-progress --optimize-autoloader --no-interaction
 
