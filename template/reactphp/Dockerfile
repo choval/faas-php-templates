@@ -19,8 +19,8 @@ FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:latest
 
 # Install PHP8
 RUN \
-    apk --no-cache add php8 && \
-    (ls /usr/bin/php || ln -s /usr/bin/php8 /usr/bin/php)
+    apk --no-cache add php81 && \
+    (ls /usr/bin/php || ln -s /usr/bin/php81 /usr/bin/php)
 
 # Copy binaries
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
