@@ -1,0 +1,11 @@
+{
+    "name": "your/project",
+    "description": "Plain PHP8 template for OpenFaaS",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+        }
+    },
+    "require": {
+    }
+}
