@@ -1,11 +1,9 @@
 name: Test Build And Run
 
 on:
-    pull_request:
-        types:
-            - opened
-            - reopened
-            - ready_for_review
+    push:
+        branches:
+            - main
     # Allow manual triggering
     workflow_dispatch:
         inputs:
@@ -35,7 +33,21 @@ jobs:
                   curl http://localhost:8080 && \
                   curl http://localhost:8081 && \
                   docker stop php8 || \
-                  docker stop php8 
-            #- name: Build PHP 8.1 test
-            #- name: Build ReactPHP test
+                  docker stop php8
+            - name: Build PHP 8.1 test
+              run: |
+                  docker build -t faas-php81 template/php81 && \
+                  docker run --rm -p 8080:8080 -p 8081:8081 -d --name php81 faas-php81 && \
+                  curl http://localhost:8080 && \
+                  curl http://localhost:8081 && \
+                  docker stop php81 || \
+                  docker stop php81
+            - name: Build ReactPHP test
+              run: |
+                  docker build -t faas-reactphp template/reactphp && \
+                  docker run --rm -p 8080:8080 -p 8081:8081 -d --name reactphp faas-reactphp && \
+                  curl http://localhost:8080 && \
+                  curl http://localhost:8081 && \
+                  docker stop reactphp || \
+                  docker stop reactphp
 
