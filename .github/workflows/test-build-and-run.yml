@@ -1,0 +1,42 @@
+name: Test Build And Run
+
+on:
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - ready_for_review
+    # Allow manual triggering
+    workflow_dispatch:
+        inputs:
+            git-ref:
+                description: Optional git ref (commit/branch/etc)
+                required: false
+
+jobs:
+
+    # Single job to keep usage low
+    build-and-run:
+        name: Builds and runs the template
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone Repository (Current)
+              uses: actions/checkout@v3
+              if: github.event.inputs.git-ref == ''
+            - name: Clone Repository (Custom Ref)
+              uses: actions/checkout@v3
+              if: github.event.inputs.git-ref != ''
+              with:
+                ref: ${{ github.event.inputs.git-ref }}
+            - name: Build PHP 8 test
+                run: |
+                    docker build -t faas-php8 templates/php8 &&  \
+                    docker run --rm -p 8080:8080 -p 8081:8081 -d --name php8 faas-php8 && \
+                    (\
+                        curl http://localhost:8080 && \
+                        curl http://localhost:8081 && \
+                        docker stop php8 \
+                    )
+            #- name: Build PHP 8.1 test
+            #- name: Build ReactPHP test
+
