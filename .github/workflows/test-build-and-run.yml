@@ -27,27 +27,9 @@ jobs:
               with:
                   ref: ${{ github.event.inputs.git-ref }}
             - name: Build PHP 8 test
-              run: |
-                  docker build -t faas-php8 template/php8 && \
-                  docker run --rm -p 8080:8080 -p 8081:8081 -d --name php8 faas-php8 && \
-                  curl http://localhost:8080 && \
-                  curl http://localhost:8081 && \
-                  docker stop php8 || \
-                  docker stop php8
+              run: ./test.sh php8
             - name: Build PHP 8.1 test
-              run: |
-                  docker build -t faas-php81 template/php81 && \
-                  docker run --rm -p 8080:8080 -p 8081:8081 -d --name php81 faas-php81 && \
-                  curl http://localhost:8080 && \
-                  curl http://localhost:8081 && \
-                  docker stop php81 || \
-                  docker stop php81
+              run: ./test.sh php81
             - name: Build ReactPHP test
-              run: |
-                  docker build -t faas-reactphp template/reactphp && \
-                  docker run --rm -p 8080:8080 -p 8081:8081 -d --name reactphp faas-reactphp && \
-                  curl http://localhost:8080 && \
-                  curl http://localhost:8081 && \
-                  docker stop reactphp || \
-                  docker stop reactphp
+              run: ./test.sh reactphp
 
