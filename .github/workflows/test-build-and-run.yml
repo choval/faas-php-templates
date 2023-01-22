@@ -27,16 +27,15 @@ jobs:
               uses: actions/checkout@v3
               if: github.event.inputs.git-ref != ''
               with:
-                ref: ${{ github.event.inputs.git-ref }}
+                  ref: ${{ github.event.inputs.git-ref }}
             - name: Build PHP 8 test
-                run: |
-                    docker build -t faas-php8 templates/php8 &&  \
-                    docker run --rm -p 8080:8080 -p 8081:8081 -d --name php8 faas-php8 && \
-                    (\
-                        curl http://localhost:8080 && \
-                        curl http://localhost:8081 && \
-                        docker stop php8 \
-                    )
+              run: |
+                  docker build -t faas-php8 template/php8 && \
+                  docker run --rm -p 8080:8080 -p 8081:8081 -d --name php8 faas-php8 && \
+                  curl http://localhost:8080 && \
+                  curl http://localhost:8081 && \
+                  docker stop php8 || \
+                  docker stop php8 
             #- name: Build PHP 8.1 test
             #- name: Build ReactPHP test
 
