@@ -1,5 +1,5 @@
 # Images
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.0 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:latest as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:latest AS composer
 
 # Arguments
