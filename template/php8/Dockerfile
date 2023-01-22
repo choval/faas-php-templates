@@ -15,7 +15,7 @@ RUN [[ -f composer.lock || composer.json ]] && \
     composer install --no-dev --no-cache --no-progress --optimize-autoloader --no-interaction
 
 # Base off from alpine
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:latest
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.16
 
 # Install PHP8
 RUN \
